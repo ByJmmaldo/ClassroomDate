@@ -32,13 +32,11 @@
             height: 100vh; overflow: hidden; display: flex; flex-direction: column; 
         }
         
-        /* Cabecera */
         header { padding: 60px 25px 20px; background: linear-gradient(to bottom, #14151f, var(--bg)); }
         .saludo { color: var(--text-dim); font-size: 14px; font-weight: 700; letter-spacing: 1px; margin-bottom: 5px; text-transform: uppercase; }
         h1 { font-size: 32px; font-weight: 900; margin: 0; line-height: 1.1; }
         h1 span { color: var(--accent); }
         
-        /* Lista de Tareas */
         main { flex: 1; overflow-y: auto; padding: 20px; padding-bottom: 140px; }
         
         .task-card { 
@@ -53,7 +51,6 @@
         .task-info h3 { margin: 0; font-size: 18px; line-height: 1.3; }
         .due-date { color: var(--red); font-size: 13px; font-weight: bold; margin-top: 8px; display: flex; align-items: center; gap: 5px; }
         
-        /* Botones Acción */
         .btn-check { 
             width: 50px; height: 50px; border-radius: 16px; 
             background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border);
@@ -67,13 +64,11 @@
             font-size: 16px; cursor: pointer;
         }
 
-        /* Estado Completado */
         .completed { opacity: 0.5; order: 10; border-color: rgba(0, 255, 136, 0.1); }
         .completed .btn-check { background: var(--green); color: #000; border: none; box-shadow: 0 0 15px rgba(0, 255, 136, 0.3); }
         .completed .due-date { color: var(--green); }
         .completed .task-info h3 { text-decoration: line-through; }
 
-        /* Botón Flotante Gigante (+) */
         .fab { 
             position: fixed; bottom: 130px; right: 25px; 
             width: 75px; height: 75px; background: var(--accent); 
@@ -82,7 +77,6 @@
             box-shadow: 0 10px 30px rgba(0, 242, 255, 0.4); z-index: 100; cursor: pointer;
         }
 
-        /* Modal Añadir */
         .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 200; display: none; align-items: flex-end; }
         .modal.active { display: flex; }
         .modal-content { background: #1a1b25; width: 100%; padding: 30px; border-radius: 40px 40px 0 0; border-top: 4px solid var(--accent); box-sizing: border-box; }
@@ -97,7 +91,6 @@
         .btn-save { width: 100%; background: var(--accent); color: #000; font-weight: 900; padding: 20px; border-radius: 16px; border: none; font-size: 18px; cursor: pointer; }
         .btn-cancel { width: 100%; background: transparent; color: var(--text-dim); padding: 15px; border: none; font-weight: bold; margin-top: 10px; cursor: pointer; }
 
-        /* Barra Navegación */
         nav { 
             position: fixed; bottom: 0; width: 100%; height: 110px; 
             background: rgba(10, 11, 16, 0.95); backdrop-filter: blur(20px); 
@@ -108,11 +101,7 @@
         .nav-icon { font-size: 28px; transition: transform 0.2s; }
         .nav-text { font-size: 10px; font-weight: 800; letter-spacing: 1px; }
         .nav-item.active { color: var(--accent); }
-        .nav-item.active .nav-icon { transform: scale(1.2); filter: drop-shadow(0 0 10px var(--accent)); }
         
-        /* Filtros */
-        .show-history .task-card:not(.completed) { display: none; }
-        .show-pending .task-card.completed { display: none; }
         .empty-msg { text-align: center; color: var(--text-dim); margin-top: 50px; font-style: italic; display: none; }
     </style>
 </head>
@@ -124,7 +113,7 @@
     </header>
 
     <main id="container">
-        <div class="empty-msg">No hay tareas pendientes 🎉</div>
+        <div class="empty-msg">Todo limpio 🎉<br>Añade la primera tarea</div>
     </main>
 
     <button class="fab" onclick="toggleModal(true)">+</button>
@@ -134,16 +123,9 @@
             <h2 style="margin:0 0 20px 0; color:white">Nueva Tarea</h2>
             <select id="materia">
                 <option value="General">Selecciona Asignatura...</option>
-                <option>Lengua Castellana</option>
-                <option>Matemáticas</option>
-                <option>Inglés</option>
-                <option>Física y Química</option>
-                <option>Geografía e Historia</option>
-                <option>Biología</option>
-                <option>Tecnología</option>
-                <option>Educación Física</option>
-                <option>Música</option>
-                <option>Otras</option>
+                <option>Lengua Castellana</option><option>Matemáticas</option><option>Inglés</option>
+                <option>Física y Química</option><option>Geografía e Historia</option><option>Biología</option>
+                <option>Tecnología</option><option>Educación Física</option><option>Música</option><option>Valores</option>
             </select>
             <input type="text" id="desc" placeholder="¿Qué hay que hacer? (Ej: Examen Tema 5)">
             <input type="date" id="fecha">
@@ -154,16 +136,13 @@
 
     <nav>
         <button class="nav-item active" onclick="setView('pending', this)">
-            <span class="nav-icon">⚡</span>
-            <span class="nav-text">PENDIENTES</span>
+            <span class="nav-icon">⚡</span><span class="nav-text">PENDIENTES</span>
         </button>
         <button class="nav-item" onclick="setView('history', this)">
-            <span class="nav-icon">✅</span>
-            <span class="nav-text">HECHO</span>
+            <span class="nav-icon">✅</span><span class="nav-text">HECHO</span>
         </button>
         <button class="nav-item" onclick="window.location.reload()">
-            <span class="nav-icon">🔄</span>
-            <span class="nav-text">RECARGAR</span>
+            <span class="nav-icon">🔄</span><span class="nav-text">RECARGAR</span>
         </button>
     </nav>
 
@@ -171,7 +150,6 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, doc, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-        // TU CONFIGURACIÓN DE FIREBASE
         const firebaseConfig = {
             apiKey: "AIzaSyAX73SwswrGbnWS1E1il45X1mJUai4H5os",
             authDomain: "classroomapp-d3127.firebaseapp.com",
@@ -183,40 +161,34 @@
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
-        const tareasRef = collection(db, "tareas"); // Conectando a la colección 'tareas'
+        const tareasRef = collection(db, "tareas");
 
-        // 1. ESCUCHAR CAMBIOS EN TIEMPO REAL
         const q = query(tareasRef, orderBy("completada", "asc"), orderBy("fecha", "asc"));
         
         onSnapshot(q, (snapshot) => {
             const cont = document.getElementById('container');
             const emptyMsg = document.querySelector('.empty-msg');
             cont.innerHTML = "";
-            cont.appendChild(emptyMsg); // Mantener mensaje vacío
+            cont.appendChild(emptyMsg);
 
             if (snapshot.empty) {
                 emptyMsg.style.display = 'block';
             } else {
                 emptyMsg.style.display = 'none';
-                snapshot.forEach((snap) => {
-                    renderTarea(snap.id, snap.data());
-                });
+                snapshot.forEach((snap) => renderTarea(snap.id, snap.data()));
             }
         });
 
-        // 2. FUNCIÓN PARA PINTAR CADA TAREA
         function renderTarea(id, t) {
             const cont = document.getElementById('container');
             const card = document.createElement('div');
             card.className = `task-card ${t.completada ? 'completed' : ''}`;
             
-            // Elegir color según materia
             let grad = "var(--grad-default)";
             const mat = t.materia || "General";
             if(mat.includes("Mat") || mat.includes("Fís") || mat.includes("Tec")) grad = "var(--grad-mates)";
             if(mat.includes("Len") || mat.includes("Ing") || mat.includes("His")) grad = "var(--grad-lengua)";
 
-            // Formatear fecha bonita
             let fechaBonita = t.fecha; 
             if(t.fecha) {
                 const [y, m, d] = t.fecha.split('-');
@@ -227,56 +199,31 @@
                 <div class="task-info">
                     <div class="materia-badge" style="background:${grad}">${mat}</div>
                     <h3>${t.desc}</h3>
-                    <div class="due-date">
-                        ${t.completada ? 'Completado' : '⏳ Entrega: ' + fechaBonita}
-                    </div>
+                    <div class="due-date">${t.completada ? 'Completado' : '⏳ Entrega: ' + fechaBonita}</div>
                 </div>
-                
-                <div class="btn-check" onclick="toggleCheck('${id}', ${t.completada})">
-                    ${t.completada ? '↩' : '✓'}
-                </div>
+                <div class="btn-check" onclick="toggleCheck('${id}', ${t.completada})">${t.completada ? '↩' : '✓'}</div>
                 <div class="btn-delete" onclick="eliminarTarea('${id}')">🗑️</div>
             `;
             cont.appendChild(card);
         }
 
-        // 3. GUARDAR TAREA NUEVA (MANUAL)
         document.getElementById('btnGuardar').onclick = async () => {
             const desc = document.getElementById('desc').value;
             const fecha = document.getElementById('fecha').value;
             const materia = document.getElementById('materia').value;
 
-            if(!desc || !fecha) return alert("Por favor, pon qué hay que hacer y la fecha.");
+            if(!desc || !fecha) return alert("Falta descripción o fecha");
 
             try {
-                await addDoc(tareasRef, {
-                    materia: materia,
-                    desc: desc,
-                    fecha: fecha,
-                    completada: false,
-                    createdAt: Date.now()
-                });
+                await addDoc(tareasRef, { materia, desc, fecha, completada: false, createdAt: Date.now() });
                 toggleModal(false);
-                // Limpiar campos
                 document.getElementById('desc').value = "";
                 document.getElementById('fecha').value = "";
-            } catch (e) {
-                console.error(e);
-                alert("Error al guardar: " + e.message);
-            }
+            } catch (e) { alert("Error al guardar: " + e.message); }
         };
 
-        // 4. FUNCIONES GLOBALES
-        window.toggleCheck = async (id, estado) => {
-            await updateDoc(doc(db, "tareas", id), { completada: !estado });
-        };
-
-        window.eliminarTarea = async (id) => {
-            if(confirm("¿Borrar definitivamente?")) {
-                await deleteDoc(doc(db, "tareas", id));
-            }
-        };
-
+        window.toggleCheck = async (id, estado) => await updateDoc(doc(db, "tareas", id), { completada: !estado });
+        window.eliminarTarea = async (id) => { if(confirm("¿Borrar definitivamente?")) await deleteDoc(doc(db, "tareas", id)); };
         window.toggleModal = (s) => document.getElementById('modal').classList.toggle('active', s);
         
         window.setView = (v, el) => {
